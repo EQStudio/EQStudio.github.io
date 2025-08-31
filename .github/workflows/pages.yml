@@ -1,27 +1,32 @@
-name: Eleventy Build
-
+name: Build Eleventy
 on:
   push:
     branches:
-      - master
-      
+      - main
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v1
+      - name: Use Node.js current
+        uses: actions/setup-node@v3
         with:
-          node-version: '10.x'
+          node-version: current
 
-      - run: npm ci
-
-      - run: npm run build
-
+      - name: Install dependencies & build
+        run: |
+          npm ci
+          npm run build
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3.8.0
         with:
-          deploy_key: $
-          publish_dir: ./dist
+          github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          #publish_dir is the folder on the docker instance which eleventy builds the pages to.
+          #it is not the docs folder in the repository
+          publish_dir: docs
+          #publish_branch is the branch in the repository.
+          #this is where you need to point GitHub pages
+          publish_branch: gh-pages
