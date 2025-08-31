@@ -1,0 +1,41 @@
+---
+layout: default
+title: Contact
+permalink: /contact/
+---
+
+<section class="contact-wrap">
+  <figure class="contact-hero">
+    <img src="/assets/images/contact/hero.jpg" alt="Studio detail">
+  </figure>
+
+  <form class="contact-form" action="https://formspree.io/f/your_form_id" method="POST">
+    <h2>Questions? Comments?</h2>
+
+    <!-- honeypot -->
+    <input type="text" name="_gotcha" style="display:none">
+
+    <div class="row two">
+      <label>
+        <span>First Name *</span>
+        <input type="text" name="first" required>
+      </label>
+      <label>
+        <span>Last Name</span>
+        <input type="text" name="last">
+      </label>
+    </div>
+
+    <label class="row">
+      <span>Email *</span>
+      <input type="email" name="email" required>
+    </label>
+
+    <label class="row">
+      <span>Message</span>
+      <textarea name="message" rows="6"></textarea>
+    </label>
+
+    <button type="submit" class="btn">Send</button>
+  </form>
+</section>

@@ -1,0 +1,15 @@
+{
+  "name": "eq-11ty-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "eleventy --serve --quiet",
+    "build": "eleventy",
+    "clean": "rimraf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "fast-glob": "^3.3.2",
+    "rimraf": "^5.0.5"
+  }
+}

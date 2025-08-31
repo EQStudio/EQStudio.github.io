@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title or 'Elaine Qiu' }} | Elaine Qiu</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Serif+Display&display=swap" rel="stylesheet">
+    <script defer src="/assets/js/lightbox.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <a class="brand" href="/">Elaine Qiu</a>
+        <nav class="nav" aria-label="Main">
+          <ul>
+            <li class="has-sub">
+              <span class="sub-label">Painting</span>
+              <ul class="submenu">
+                {% for item in collections.painting %}
+                  <li><a href="{{ item.url }}">{{ item.data.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+
+            <li class="has-sub">
+              <span class="sub-label">Installation</span>
+              <ul class="submenu">
+                {% for item in collections.installation %}
+                  <li><a href="{{ item.url }}">{{ item.data.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+
+            <li class="has-sub">
+              <span class="sub-label">About</span>
+              <ul class="submenu">
+                <li><a href="/about/statement-bio/">Statement &amp; Bio</a></li>
+                <li><a href="/about/cv/">CV</a></li>
+              </ul>
+            </li>
+
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="content">
+        {{ content | safe }}
+        <footer class="footer">
+          <div class="footer-row">
+            <span>Elaine Qiu | Contemporary Art</span>
+            <span>© 2025 Elaine Qiu</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog">
+      <div class="lb-backdrop" data-close></div>
+
+      <div class="lb-inner">
+        <div class="lb-media">
+          <img id="lb-img" alt="">
+        </div>
+        <aside class="lb-meta">
+          <h2 id="lb-title"></h2>
+          <p id="lb-sub"></p>
+        </aside>
+      </div>
+
+      <button class="lb-full" aria-label="Toggle zoom">⤢</button>
+      <button class="lb-close" aria-label="Close">×</button>
+      <button class="lb-prev" aria-label="Previous">‹</button>
+      <button class="lb-next" aria-label="Next">›</button>
+    </div>
+
+  </body>
+</html>
