@@ -3,25 +3,37 @@ layout: default
 ---
 <h1 style="text-align:center">{{ title }}</h1>
 
+{% if hero and hero.file %}
+  {% set heroSrc = '/assets/galleries/' ~ slug ~ '/' ~ hero.file %}
+  <figure class="gallery-hero">
+    <img src="{{ heroSrc | url }}" alt="{{ hero.alt or title }}">
+    {% if hero.caption %}<figcaption>{{ hero.caption }}</figcaption>{% endif %}
+  </figure>
+{% endif %}
+
 <div class="lead-wrap"><div class="lead">{{ content | safe }}</div></div>
 
-{% set images = slug | galleryImages %}
-{% set meta = slug | imageMeta %}
-<div class="gallery">
-  {% for src in images %}
-    {% set file = src | basename %}
-    {% set m = meta[file] %}
+{% if hero and hero.file %}
+  {% set exclude = [hero.file] %}
+{% else %}
+  {% set exclude = [] %}
+{% endif %}
+
+{% set items = slug | galleryFromCaptions(exclude) %}
+
+<div class="gallery masonry">
+  {% for it in items %}
     <div class="card">
       <button class="zoom"
-              data-src="{{ src }}"
+              data-src="{{ it.src | url }}"
               data-idx="{{ loop.index0 }}"
-              data-title="{{ (m and m.title) or '' }}"
-              data-sub="{{ (m and m.subtitle) or '' }}">
-        <img src="{{ src }}" alt="{{ (m and m.title) or (title ~ ' image ' ~ loop.index) }}">
+              data-title="{{ it.title }}"
+              data-sub="{{ it.subtitle }}">
+        <img src="{{ it.src | url }}" alt="{{ it.title or (title ~ ' image ' ~ loop.index) }}">
         <div class="overlay">
           <div>
-            {% if m and m.title %}<h3>{{ m.title }}</h3>{% endif %}
-            {% if m and m.subtitle %}<p>{{ m.subtitle }}</p>{% endif %}
+            {% if it.title %}<h3>{{ it.title }}</h3>{% endif %}
+            {% if it.subtitle %}<p>{{ it.subtitle }}</p>{% endif %}
           </div>
         </div>
       </button>

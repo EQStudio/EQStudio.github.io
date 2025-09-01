@@ -9,12 +9,22 @@ module.exports = function(eleventyConfig) {
   // Static passthrough
   eleventyConfig.addPassthroughCopy({"src/assets": "assets"});
 
-  // Filter to list gallery images by slug
-  eleventyConfig.addFilter("galleryImages", function(slug) {
-    const pattern = `src/assets/galleries/${slug}/*.{jpg,jpeg,png,gif,webp}`;
-    const files = fg.sync(pattern).sort();
-    // Map to site URLs
-    return files.map(f => "/" + f.replace(/^src\//, ""));
+  eleventyConfig.addFilter("galleryFromCaptions", function (slug, exclude = []) {
+    const capPath = path.join("src/assets/galleries", slug, "captions.json");
+    try {
+      const arr = JSON.parse(fs.readFileSync(capPath, "utf8")); // [{file,title,subtitle}]
+      const omit = new Set(exclude);
+      return arr
+        .filter(x => x.file && !omit.has(x.file))
+        .map(x => ({
+          src: "/" + path.posix.join("assets/galleries", slug, x.file),
+          title: x.title || "",
+          subtitle: x.subtitle || "",
+          file: x.file
+        }));
+    } catch {
+      return [];
+    }
   });
 
   // Collections for painting & installation (ordered by 'order' in front matter)
