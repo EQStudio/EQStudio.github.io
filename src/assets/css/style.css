@@ -238,6 +238,7 @@ li {
 
 .card .overlay h3 {
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   font-size: 20px;
   font-weight: 700;
   margin: 0 0 6px;
@@ -245,6 +246,7 @@ li {
 
 .card .overlay p {
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   font-size: 14px;
   opacity: 0.95;
   margin: 0;
