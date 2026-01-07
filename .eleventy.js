@@ -9,7 +9,7 @@ module.exports = function(eleventyConfig) {
   // Static passthrough
   eleventyConfig.addPassthroughCopy({"src/assets": "assets"});
 
-  eleventyConfig.addPassthroughCopy({"CNAME": "CNAME"});
+  eleventyConfig.addPassthroughCopy({"src/CNAME": "CNAME"});
 
   eleventyConfig.addFilter("galleryFromCaptions", function (slug, exclude = []) {
     const capPath = path.join("src/assets/galleries", slug, "captions.json");
